@@ -3,19 +3,15 @@ package com.pluralsight;
 public class Reservation {
     private String roomType;
     private int numberOfNights;
-    private double price;
     private boolean isWeekend;
-    private double reservationTotal;
 
-    public Reservation(String roomType, int numberOfNights, double price, boolean isWeekend, double reservationTotal) {
+    public Reservation(String roomType, int numberOfNights, boolean isWeekend) {
         this.roomType = roomType;
         this.numberOfNights = numberOfNights;
-        this.price = price;
         this.isWeekend = isWeekend;
-        this.reservationTotal = reservationTotal;
     }
 
-    public boolean isRoomType() {
+    public String getRoomType() {
         return roomType;
     }
 
@@ -32,7 +28,17 @@ public class Reservation {
     }
 
     public double getPrice() {
-        return price;
+        switch (roomType.toLowerCase()) {
+            case "king" -> {
+                int price = 136;
+                return price;
+            }
+            case "double" -> {
+                int price = 124;
+                return price;
+            }
+            default -> throw new IllegalStateException("Invalid Room Type: " + roomType.toLowerCase());
+        }
     }
 
     public boolean isWeekend() {
@@ -45,9 +51,9 @@ public class Reservation {
 
     public double getReservationTotal() {
         if (isWeekend) {
-            return (price * numberOfNights) * 1.25;
+            return (getPrice() * numberOfNights) * 1.25;
         } else {
-            return price * numberOfNights;
+            return getPrice() * numberOfNights;
         }
     }
 }

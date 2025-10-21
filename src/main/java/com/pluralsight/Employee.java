@@ -6,4 +6,6 @@ public class Employee {
     private String department;
     private double payRate;
     private double hoursWorked;
+
+
 }
