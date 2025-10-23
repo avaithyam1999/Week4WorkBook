@@ -7,6 +7,13 @@ public class Room {
     private boolean dirty;
     private boolean available;
 
+    public Room() {
+        this.numberOfBeds = 1;
+        this.price = 109.99;
+        this.occupied = false;
+        this.dirty = false;
+        this.available = true;
+    }
     public Room(int numberOfBeds, double price, boolean occupied, boolean dirty, boolean available) {
         this.numberOfBeds = numberOfBeds;
         this.price = price;
@@ -54,8 +61,8 @@ public class Room {
             System.out.println("Room is now available");
         }
     }
-    private void cleanRoom() {
-        if (dirty) {
+    public void cleanRoom() {
+        if (dirty && isAvailable()) {
             dirty = false;
         }
     }

@@ -30,12 +30,10 @@ public class Reservation {
     public double getPrice() {
         switch (roomType.toLowerCase()) {
             case "king" -> {
-                int price = 136;
-                return price;
+                return 136;
             }
             case "double" -> {
-                int price = 124;
-                return price;
+                return 124;
             }
             default -> throw new IllegalStateException("Invalid Room Type: " + roomType.toLowerCase());
         }
@@ -50,10 +48,12 @@ public class Reservation {
     }
 
     public double getReservationTotal() {
+        double total = getPrice() * numberOfNights;
         if (isWeekend) {
-            return (getPrice() * numberOfNights) * 1.25;
+            return total * 1.25;
         } else {
             return getPrice() * numberOfNights;
         }
     }
+
 }

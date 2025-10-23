@@ -13,5 +13,24 @@ public class HotelOperations {
         Room room1 = new Room(2, 150.00, false, false, true);
         room1.checkIn();
         room1.checkOut();
+
+        Hotel grandBudapestHotel = new Hotel("Grand Budapest Hotel", 15, 100);
+        System.out.println(grandBudapestHotel);
+
+
+        if (grandBudapestHotel.bookRoom(5, false)) {
+            System.out.println(grandBudapestHotel);
+        }else{
+            System.out.println("Go home!");
+        }
+
+
+        if (grandBudapestHotel.bookRoom(10, true)) {
+            System.out.println(grandBudapestHotel);
+        }else{
+            System.out.println("Go home snob!");
+        }
+
+
     }
 }
