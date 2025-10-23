@@ -35,9 +35,9 @@ public class BlackJack {
         System.out.println("Cards total: " + player1Value);
 
         System.out.printf("\n %s's hand: ", player2Name);
-        player1Hand.showCards();
-        int player2Value = player1Hand.getValue();
-        System.out.println("Cards total: " + player1Value);
+        player2Hand.showCards();
+        int player2Value = player2Hand.getValue();
+        System.out.println("Cards total: " + player2Value);
 
         determineWinner(player1Value, player2Value, player2Name, player1Name);
     }
