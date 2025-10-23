@@ -5,7 +5,16 @@ import java.util.Scanner;
 public class BlackJack {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("=====BlackJack=====");
+        System.out.println("""
+                 _     _            _    _            _   \s
+                | |   | |          | |  (_)          | |  \s
+                | |__ | | __ _  ___| | ___  __ _  ___| | __
+                | '_ \\| |/ _` |/ __| |/ / |/ _` |/ __| |/ /
+                | |_) | | (_| | (__|   <| | (_| | (__|   <\s
+                |_.__/|_|\\__,_|\\___|_|\\_\\ |\\__,_|\\___|_|\\_\\
+                                       _/ |               \s
+                                      |__/                \s
+                """);
 
         System.out.println("Enter name for player 1:");
         String player1Name = scanner.nextLine();
@@ -22,9 +31,11 @@ public class BlackJack {
         Hand player1Hand = new Hand();
         Hand player2Hand = new Hand();
 
-        System.out.println("\nDealing 2 cards to each player: \n");
+        System.out.println("\nDealing 2 cards to each player: \n================================");
         player1Hand.deal(deck.deal());
         player1Hand.deal(deck.deal());
+
+
 
         player2Hand.deal(deck.deal());
         player2Hand.deal(deck.deal());
@@ -32,17 +43,54 @@ public class BlackJack {
         System.out.printf("\n %s's hand: ", player1Name);
         player1Hand.showCards();
         int player1Value = player1Hand.getValue();
-        System.out.println("Cards total: " + player1Value);
+        System.out.println("Current total: " + player1Value);
+
+        while (player1Hand.getValue() < 21) {
+            System.out.printf("%s, would you like to hit or stay?", player1Name);
+            String hitStayChoice = scanner.nextLine();
+            if (hitStayChoice.equals("hit")) {
+                player1Hand.deal(deck.deal());
+                System.out.printf("%s's new hand: ", player1Name);
+                player1Hand.showCards();
+                player1Value = player1Hand.getValue();
+                System.out.printf("Current total: %d", player1Value);
+
+                if (player1Value > 21) {
+                    System.out.println("\nBusted!");
+                }
+            } else if (hitStayChoice.equals("stay")){
+                break;
+            }
+        }
 
         System.out.printf("\n %s's hand: ", player2Name);
         player2Hand.showCards();
         int player2Value = player2Hand.getValue();
-        System.out.println("Cards total: " + player2Value);
+        System.out.println("Current total: " + player2Value);
 
-        determineWinner(player1Value, player2Value, player2Name, player1Name);
+        while (player2Hand.getValue() < 21) {
+            System.out.printf("%s, would you like to hit or stay?", player2Name);
+            String hitStayChoice = scanner.nextLine();
+            hitStayChoice.toLowerCase();
+            if (hitStayChoice.equals("hit")) {
+                player2Hand.deal(deck.deal());
+                System.out.printf("%s's new hand: ", player2Name);
+                player2Hand.showCards();
+                player2Value = player2Hand.getValue();
+                System.out.printf("Current total: %d\n", player2Value);
+
+                if (player2Value > 21) {
+                    System.out.println("\nBusted!");
+                }
+            } else if (hitStayChoice.equals("stay")) {
+                break;
+            }
+        }
+
+        determineFinalWinner(player1Value, player2Value, player2Name, player1Name);
     }
 
-    private static void determineWinner(int player1Value, int player2Value, String player2Name, String player1Name) {
+    private static void determineFinalWinner(int player1Value, int player2Value, String player2Name, String player1Name) {
         boolean player1bust = player1Value > 21;
         boolean player2bust = player2Value > 21;
 
